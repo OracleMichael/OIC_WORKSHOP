@@ -17,7 +17,7 @@ This repository details how to create an integration from scratch and is designe
 - Track the integration for potential errors
 
 There is also an optional additional exploration of OIC that workshop attendees can do if they complete early:
-1. Add an email notification at the end of the integration that sends you an email if the integration successfully completes
+1. Add an email notification at the end of the integration that sends you an email if the integration successfully completes, as well as an attachment of the data that was inserted.
 2. Add some error handling logic to the integration to avoid common errors, such as:
   - File not found on the FTP server
   - Table not found in ATP
