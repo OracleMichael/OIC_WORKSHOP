@@ -54,13 +54,13 @@ Here you will connect to the embedded file server on OIC. You may read more abou
    - For the **SFTP Connection**, select `Yes`.
    - In the security section, keep the **Security Policy** as `FTP Server Access Policy` and fill in your IDCS credentials for the **User Name** and **Password**. _Note: these are the same credentials you used to log in to Oracle cloud as your login is federated to IDCS._
 5. Once you are done with the above, click **Test**, and then one of the two **Test** options. Once again, if you see the 100%, everything is configured properly.
-6. **Save** your connection.
+6. **Save** your connection. Then return to the connection list screen by clicking the white chevron in the upper left corner.
 
 ### **Step 3: Initialize the integration**
 
 This step initializes the integration that you will build on throughout the hands-on portion.
-1. **Click** the hamburger menu in the upper left corner and select **Integrations**, then **Integrations**.
-2. **Create** an integration (upper right corner), then after the dialog box pops up, select "Scheduled Orchestration".
+1. Click the hamburger menu in the upper left corner and select **Integrations**.
+2. **Create** an integration (upper right corner), then after the dialog box pops up, select `Scheduled Orchestration`.
 3. In the wizard, give the integration a name, then click **Create**. We continue to recommend that you add your name to the integration name to differentiate it from integrations created by other workshop attendees. Then click **Create**. _Note: for a better integration experience, we recommend you change the layout to "horizontal" and to click the reset button if your integration becomes too messy._
 
 ### **Step 4: Invoke FTP to retrieve data**
