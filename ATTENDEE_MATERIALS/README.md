@@ -66,7 +66,7 @@ This step initializes the integration that you will build on throughout the hand
 ### **Step 4: Invoke FTP to retrieve data**
 
 This step sets up the invocation of FTP to retrieve all data from the file. Our target file is called **[person.csv](person.csv)**. Please download this file as you will need it in this step.
-1. Hover your cursor over the grey arrow from the schedule to the stop node, and **click the plus**. Locate the FTP connection you configured.
+1. Hover your cursor over the grey arrow from the schedule to the stop node, and **click the plus**. Select the FTP connection you configured.
 2. In the wizard, give the invocation a name. These names only have to be unique within the integration, so they can be generic like `getData`. Click **Next**.
 3. Leave the **operation** as `Read a File`. For the **Input Directory**, enter `/workshop`, and for the **File Name**, enter `person.csv`. Click **Next**.
 4. Leave the default settings for this page (`Yes` and `Sample delimited document`). Click **Next**.
@@ -78,15 +78,16 @@ This step sets up the invocation of FTP to retrieve all data from the file. Our 
 ### **Step 5: Insert data into ATP**
 
 This step inserts the data into ATP.
-1. Hover your cursor over the grey arrow between "getTable" and the stop node. It might help to click **Reset** to re-position all the nodes in the integration. Locate the ATP connection you configured.
-2. In the wizard, give the invoke a name (for instance, "updateTable"). For the **operation to perform**, select "Perform an Operation On a Table", and select "Insert". Then click **Next**.
-3. Select "ADMIN" as the **Schema** and **search** for the table called `WORKSHOP`. Once you have located the table, you may double-click it or single-click and click the single right chevron to add it to the right side. Then click **Import Tables**.
+1. Hover your cursor over the grey arrow between `getData` and the stop node. It might help to click **Reset** to re-position all the nodes in the integration. Select the ATP connection you configured.
+2. In the wizard, give the invoke a name (for instance, "insertIntoTable"). For the **operation to perform**, select `Perform an Operation On a Table`, and select `Insert`. Click **Next**.
+3. Select `ADMIN` as the **Schema** and **search** for the table called `WORKSHOP`. Once you have located the table, you may double-click it or single-click and click the single right chevron to add it to the right side. Then click **Import Tables**.
 4. There are no more actions to perform, and the remaining pages are there to show information. Click **Next** and **Done**.
-5. Select the **Map to updateTable**, and click on the pencil icon to **edit** the mapper.
-6. On the left hand side (LHS), locate TODO
-the**currRow** until you see the four variables (id, name, etc.), and on the right hand side (RHS), expand `WORKSHOP` until you see the four variables. Drag the LHS variables to their RHS counterparts.
-7. You will modify the XSLT. also hard code the name and timestamp
-8. Once you have completed the modification to the data, click **Validate** at the top right of the screen, then **Close**.
+5. Select the **Map to insertIntoTable**, and click on the pencil icon to **edit** the mapper.
+6. On the left hand side (LHS), expand **getData Response > SyncReadFileResponse > FileReadResponse > RecordSet**, which should contain a single **record** variable. Drag **record** to **Workshop**. This should create a line from **record** to **Workshop**, indicating that a mapping was created between the two objects. _Note: since both **record** and **Workshop** are container objects that consist of primitive variables, the mapping actually doesn't map any data. It only generates a "foreach" operator in the XSLT definition of the map._
+7. Now to map the variables within both objects. Click **XSLT** (easiest way is just ctrl+F or cmd+F to search for XSLT), then on the RHS expand **for-each > Workshop**. Also, on the LHS, expand **record**. Map all of the LHS variables to the RHS variables, so `record.Fname` to `Workshop.fname`, and so on.
+8. You will need to hard-code the `timestamp` and `createdBy` variables. Right-click on the `timestamp` variable, and select `Create Target Node`. An expression box should appear on the bottom if it has not already. Click the wrench+screwdriver icon (right side under the x) to enable editing of the expression. Enter this code as the expression: `fn:current-dateTime()`. Then click the check symbol (under the wrench+screwdriver) to save this expression.
+9. Create a target node for the `createdBy` variable and enter your name surrounded by quotes. For instance: `"John Doe"`.
+10. Once you have completed all mappings, click **Validate** at the top right of the screen, then **Close**.
 
 ***Save your integration.***
 
