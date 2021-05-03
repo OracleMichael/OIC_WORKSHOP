@@ -2,35 +2,39 @@
 
 ## Prerequisites
 
-- Set up your tenancy user. As this is the first of four workshop sessions, if you have not done this already, we will assist you with setting up your user. You should have received an email about a password reset for the Oracle Cloud workshop tenancy (the tenancy name is **thevanguardgroup**). Click the link in the email, provide a password, and you should be good to go. If you do not know your username, or if you did not receive a password reset email, please let one of the workshop instructors know.
+- Set up your tenancy user. You should have received an email about a password reset for the Oracle Cloud workshop tenancy (the tenancy name is **thevanguardgroup**). Click the link in the email, provide a password, and you should be good to go. If you do not know your username, or if you did not receive a password reset email, please let one of the workshop instructors know.
 - Make sure you are able to log in to Oracle Integration Cloud (OIC). Your workshop instructor will provide you the link to the **OIC home page** and show how to navigate to this home page from within the cloud console (cloud.oracle.com).
-- Once you are able to log in to OIC, make sure you can create a connection and an integration. You don't need to actually create these artifacts, you just need to confirm that when you click "Create" you don't receive a yellow banner notification saying "unauthorized" or something similar.
+- Once you are able to log in to OIC, make sure you can create a connection and an integration. You don't need to actually create these artifacts, you just need to confirm that when you click "Create" in the upper right corner, a dialog box pops up and you don't receive a yellow banner notification saying "unauthorized" or something similar.
 
 With these steps you are good to go!
 
 ## Section 1: Basic Integration
 
-This section handles the "non-optional" part of the hands-on workshop. It is our objective to make sure every lab attendee is able to complete this integration.
+This section handles the "non-optional" part of the hands-on workshop. It is our objective to make sure every lab attendee is able to complete this integration. Here is a diagram of the integration we will build:
+![](images/diagram.png)
+
+### **Step 0: Retrieve the ATP Wallet File**
+
+Prior to connecting to ATP, you will need the wallet file.
+1. Log in to **[cloud.oracle.com](cloud.oracle.com)**.
+2. Click the hamburger menu Ξ (looks like three stacked horizontal lines) in the upper left corner, click "Oracle Database", and select **Autonomous Transaction Processing**.
+3. On the left, change the **compartment** to the compartment `OIC_Labs`. Then, click on the ATP instance called "workshopDB". _Make sure your region is "US East (Ashburn)" or you will not see the instance._
+4. Click the button called **DB Connection**. Keep the wallet type as "Instance Wallet", then click **Download Wallet**. This will give you a pop-up wizard to download the wallet. Add a password for the wallet. **Remember this password, as you will use it to create the connection later in step 1.**
 
 ### **Step 1: Create the ATP Connection**
 
-First, you will need to retrieve the wallet file.
-1. Log in to **cloud.oracle.com**.
-2. **Click** the hamburger menu Ξ (looks like three stacked horizontal lines) in the upper left corner, click "Oracle Database", and select **Autonomous Transaction Processing**.
-3. On the left, change the **compartment** to the root compartment "thevanguardgroup" if it is not already set to that. Then, click on the ATP instance called "DB 202104271426". _Make sure your region is "US East (Ashburn)" or you will not see the instance._
-4. Click the button called **DB Connection**. Keep the wallet type as "Instance Wallet", then click **Download Wallet**. This will give you a pop-up wizard to download the wallet. Add a password for the wallet. **Remember this password, as you will use it to create the connection later in this step.**
 Now that you have the wallet file, you can create the connection.
-5. Navigate to the integration home page: Click on the hamburger menu, then on **Developer Services**, and finally select **Integration** under Application Integration. Change the compartment to **OIC_Labs**, then select **OIC_workshop**. Finally, click on the **Service Console** to navigate to the home page. Alternatively, you can directly access the link for this home page if you have it saved somewhere. _We recommend that you bookmark OIC home pages such as this one._
-6. **Click** the hamburger menu in the upper left corner and select **Integrations**, then **Connections**.
-7. **Create** a connection (upper right corner), then after the dialog box pops up, search for "ATP" and select the "Oracle ATP" adapter.
-8. In the wizard, give the connection a name, then click **Create**. We recommend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click **Create**.
-9. Perform the following:
+1. Navigate to the integration home page: Click on the hamburger menu, then on **Developer Services**, and finally select **Integration** under Application Integration. Change the compartment to **OIC_Labs**, then select **OIC_workshop**. Finally, click on the **Service Console** to navigate to the home page. Alternatively, you can directly access the link for this home page if you have it saved somewhere. _We recommend that you bookmark OIC home pages such as this one._
+2. **Click** the hamburger menu in the upper left corner and select **Integrations**, then **Connections**.
+3. **Create** a connection (upper right corner), then after the dialog box pops up, search for "ATP" and select the "Oracle ATP" adapter.
+4. In the wizard, give the connection a name, then click **Create**. We recommend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click **Create**.
+5. Perform the following:
   - In the security section, **click** the upload button (square button with up arrow) and upload the wallet file you downloaded. This should be the entire zip file.
   - For the **Wallet Password**, type the password you provided when you downloaded the wallet file.
   - For the **Database Service Username**, type "ADMIN".
   - For the **Database Service Password**, your workshop instructor will provide you with the admin password.
   - Finally, right above the security section, for the not-so-optional "Service Name (optional)" enter "atpworkshop_high". _Note: to locate a list of valid service names, unzip the wallet file, then open the tnsnames.ora file._
-10. Once you are done with the above, click **Test**. The connection should give you a green banner notification, and the connection should show as 100% configured (100% in a blue oval). **Save** your connection.
+6. Once you are done with the above, click **Test**. The connection should give you a green banner notification, and the connection should show as 100% configured (100% in a blue oval). **Save** your connection.
 
 ### **Step 2: Create the FTP Connection**
 
