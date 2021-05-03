@@ -6,57 +6,62 @@
 - Make sure you are able to log in to Oracle Integration Cloud (OIC). Your workshop instructor will provide you the link to the **OIC home page** and show how to navigate to this home page from within the cloud console (cloud.oracle.com).
 - Once you are able to log in to OIC, make sure you can create a connection and an integration. You don't need to actually create these artifacts, you just need to confirm that when you click "Create" in the upper right corner, a dialog box pops up and you don't receive a yellow banner notification saying "unauthorized" or something similar.
 
-With these steps you are good to go!
+With these prerequisites checked you are good to go!
 
-## Section 1: Basic Integration
+## Section 0: Setup
 
-This section handles the "non-optional" part of the hands-on workshop. It is our objective to make sure every lab attendee is able to complete this integration. Here is a diagram of the integration we will build:
-![](images/diagram.png)
+There are a few crucial steps prior to being able to successfully create all parts of this integration. Please complete these steps in their entirety.
 
-### **Step 0: Retrieve the ATP Wallet File**
+### **Step 1: Retrieve the ATP Wallet File**
 
 Prior to connecting to ATP, you will need the wallet file.
 1. Log in to **[cloud.oracle.com](cloud.oracle.com)**.
-2. Click the hamburger menu Ξ (looks like three stacked horizontal lines) in the upper left corner, click "Oracle Database", and select **Autonomous Transaction Processing**.
-3. On the left, change the **compartment** to the compartment `OIC_Labs`. Then, click on the ATP instance called "workshopDB". _Make sure your region is "US East (Ashburn)" or you will not see the instance._
-4. Click the button called **DB Connection**. Keep the wallet type as "Instance Wallet", then click **Download Wallet**. This will give you a pop-up wizard to download the wallet. Add a password for the wallet. **Remember this password, as you will use it to create the connection later in step 1.**
+2. Click the hamburger menu `Ξ` (looks like three stacked horizontal lines) in the upper left corner, click **Oracle Database**, and select **Autonomous Transaction Processing**.
+3. On the left, change the **compartment** to the compartment `OIC_Labs`. Then, click on the ATP instance called `workshopDB`. _Make sure your region is "US East (Ashburn)" or you will not see the instance._
+4. Click the **DB Connection** button. Keep the wallet type as "Instance Wallet", then click **Download Wallet**. This will give you a pop-up wizard to download the wallet. Add a password for the wallet. **Remember this password, as you will use it to create the connection later in step 1.**
 You may use [SQL Developer](https://www.oracle.com/database/technologies/appdev/sqldeveloper-landing.html) or other DB applications to connect to the autonomous database.
+
+## Section 1: Basic Integration
+
+In this section, you will learn how to set up an integration that pulls data from a file server and inserts that data into a database. It is our objective to make sure every lab attendee is able to complete this integration. Here is a diagram of the integration you will build:
+![](images/diagram.png)
 
 ### **Step 1: Create the ATP Connection**
 
-Now that you have the wallet file, you can create the connection.
-<ol>
-	<li>Navigate to the integration home page: from <a href='cloud.oracle.com'>cloud.oracle.com</a>, click on the hamburger menu, then on <b>Developer Services</b>, and select <b>Integration</b> under Application Integration. Change the compartment to <code>OIC_Labs</code> if it is not already set to that, then click on <b>OIC_workshop</b>. Finally, click on the <b>Service Console</b> to navigate to the home page. In the future, you can directly access the link for this home page if you have it saved somewhere. _We recommend that you bookmark OIC home pages such as this one._</li>
-	<li>Click the hamburger menu in the upper left corner and select <b>Integrations</b>, then <b>Connections</b>.</li>
-	<li><b>Create</b> a connection (upper right corner), then after the dialog box pops up, search for <code>ATP</code> and select the <code>Oracle ATP</code> adapter.</li>
-	<li>In the wizard, give the connection a name and leave the other options at their default. We recommend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click <b>Create</b>.</li>
-	<li>Perform the following:
-	<ul>
-		<li>In the security section, click the upload button (square button with up arrow) and upload the wallet file you downloaded. This should be the entire zip file called <code>Wallet_DB202105022139.zip</code>.</li>
-	  	<li>For the <b>Wallet Password</b>, type the password you provided when you downloaded the wallet file.</li>
-	  	<li>For the <b>Database Service Username</b>, type <code>ADMIN</code>.</li>
-	  	<li>For the <b>Database Service Password</b>, your workshop instructor will provide you with the admin password.</li>
-	  	<li>Finally, right above the security section, for the not-so-optional "Service Name (optional)" enter <code>db202105022139_high</code>. _Note: to locate a list of valid service names, unzip the wallet file, then open the tnsnames.ora file._</li>
-	</ul>
-	<li>Once you are done with the above, click <b>Test</b>. The connection should give you a green banner notification, and the connection should show as 100% configured (100% in a blue oval). <b>Save</b> your connection.</li>
-</ol>
+Now that you have the wallet file, you can create the connection to ATP.
+1. Navigate to the integration home page: from [cloud.oracle.com](cloud.oracle.com), click on the hamburger menu, then on **Developer Services**, and select **Integration** under Application Integration. Change the compartment to `OIC_Labs` if it is not already set to that, then click on **OIC_workshop**. Finally, click on the **Service Console** to navigate to the home page. In the future, you can directly access the link for this home page if you have it saved somewhere. _We recommend that you bookmark OIC home pages such as this one._
+2. Click the hamburger menu in the upper left corner and select **Integrations > Connections**.
+3. **Create** a connection (upper right corner), then after the dialog box pops up, search for `ATP` and select the `Oracle ATP` adapter.
+4. In the wizard, give the connection a name and leave the other options at their default. We recommend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click **Create**.
+5. Perform the following:
+   - In the security section, click the upload button (square button with up arrow) and upload the wallet file you downloaded. This should be the entire zip file called `Wallet_DB202105022139.zip`.
+   - For the **Wallet Password**, type the password you provided when you downloaded the wallet file.
+   - For the **Database Service Username**, type `ADMIN`.
+   - For the **Database Service Password**, your workshop instructor will provide you with the admin password.
+   - Finally, right above the security section, for the not-so-optional "Service Name (optional)" enter `db202105022139_high`. _Note: to locate a list of valid service names, unzip the wallet file, then open the tnsnames.ora file using a text editor._
+6. Once you are done with the above, click **Test**. The connection should give you a green banner notification, and the connection should show as 100% configured (100% in a blue oval).
+7. **Save** your connection. Then return to the connection list screen by clicking the white chevron `<` in the upper left corner.
 
 ### **Step 2: Create the FTP Connection**
 
-1. Once again, **create** a connection, then after the dialog box pops up, search for "FTP" and select the "FTP" adapter.
-2. In the wizard, give the connection a name, then click **Create**. Once again, we recmomend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click **Create**.
-3. Now you will look up the specifics of the FTP server. In a new tab, navigate to your OIC home page (see part 1.1.5 for more details). Click **something**, then 
+Here you will connect to the embedded file server on OIC. You may read more about it in [this blog post](https://blogs.oracle.com/integration/embedded-file-server-sftp-in-oracle-integration).
+1. In order to connect to the FTP server, you will need the **FTP Server Host Address** and **FTP Server Port** of the embedded file server on OIC. Navigate to your OIC home page (see step 1.1.1), click the hamburger menu in the upper left corner, then select **Settings > File Server > Settings**.
+2. While the settings are loading, open a new tab and navigate to your OIC home page. Click the hamburger menu in the upper left corner and select **Integrations > Connections**. Once again, **create** a connection, then after the dialog box pops up, search for `FTP` and select the `FTP` adapter.
+3. In the wizard, give the connection a name and leave the other options at their default. We recommend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click **Create**.
 4. Perform the following:
-  - For the **Host Name**, type in the IP address of the FTP server.
-  - In the security section, fill in your OIC username and password.
-TODO
+   - For the **FTP Host Server Address**, type in the IP address of the embedded file server.
+   - For the **FTP Server Port**, type in the port number of the embedded file server.
+   - For the **SFTP Connection**, select `Yes`.
+   - In the security section, keep the **Security Policy** as `FTP Server Access Policy` and fill in your IDCS credentials for the **User Name** and **Password**. _Note: these are the same credentials you used to log in to Oracle cloud as your login is federated to IDCS._
+5. Once you are done with the above, click **Test**, and then one of the two **Test** options. Once again, if you see the 100%, everything is configured properly.
+6. **Save** your connection.
 
 ### **Step 3: Initialize the integration**
 
 This step initializes the integration that you will build on throughout the hands-on portion.
 1. **Click** the hamburger menu in the upper left corner and select **Integrations**, then **Integrations**.
 2. **Create** an integration (upper right corner), then after the dialog box pops up, select "Scheduled Orchestration".
-3. In the wizard, give the integration a name, then click **Create**. We recommend that you add your name to the integration name to differentiate it from integrations created by other workshop attendees. Then click **Create**. _Note: for a better integration experience, we recommend you change the layout to "horizontal" and to click the reset button if your integration becomes too messy._
+3. In the wizard, give the integration a name, then click **Create**. We continue to recommend that you add your name to the integration name to differentiate it from integrations created by other workshop attendees. Then click **Create**. _Note: for a better integration experience, we recommend you change the layout to "horizontal" and to click the reset button if your integration becomes too messy._
 
 ### **Step 4: Invoke FTP to retrieve data**
 
