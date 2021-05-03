@@ -18,7 +18,7 @@ Prior to connecting to ATP, you will need the wallet file.
 1. Log in to **[cloud.oracle.com](cloud.oracle.com)**.
 2. Click the hamburger menu `Ξ` (looks like three stacked horizontal lines) in the upper left corner, click **Oracle Database**, and select **Autonomous Transaction Processing**.
 3. On the left, change the **compartment** to the compartment `OIC_Labs`. Then, click on the ATP instance called `workshopDB`. _Make sure your region is "US East (Ashburn)" or you will not see the instance._
-4. Click the **DB Connection** button. Keep the wallet type as "Instance Wallet", then click **Download Wallet**. This will give you a pop-up wizard to download the wallet. Add a password for the wallet. **Remember this password, as you will use it to create the connection later in step 1.**
+4. Click the **DB Connection** button. Keep the wallet type as "Instance Wallet", then click **Download Wallet**. This will give you a pop-up wizard to download the wallet. Add a password for the wallet. **Remember this password, as you will use it to create the connection later in [section 1](#section-1-basic-integration).**
 You may use [SQL Developer](https://www.oracle.com/database/technologies/appdev/sqldeveloper-landing.html) or other DB applications to connect to the autonomous database.
 
 ## Section 1: Basic Integration
@@ -45,7 +45,7 @@ Now that you have the wallet file, you can create the connection to ATP.
 ### **Step 2: Create the FTP Connection**
 
 Here you will connect to the embedded file server on OIC. You may read more about it in [this blog post](https://blogs.oracle.com/integration/embedded-file-server-sftp-in-oracle-integration).
-1. In order to connect to the FTP server, you will need the **FTP Server Host Address** and **FTP Server Port** of the embedded file server on OIC. Navigate to your OIC home page (see step 1.1.1), click the hamburger menu in the upper left corner, then select **Settings > File Server > Settings**.
+1. In order to connect to the FTP server, you will need the **FTP Server Host Address** and **FTP Server Port** of the embedded file server on OIC. Navigate to your OIC home page, click the hamburger menu in the upper left corner, then select **Settings > File Server > Settings**.
 2. While the settings are loading, open a new tab and navigate to your OIC home page. Click the hamburger menu in the upper left corner and select **Integrations > Connections**. Once again, **create** a connection, then after the dialog box pops up, search for `FTP` and select the `FTP` adapter.
 3. In the wizard, give the connection a name and leave the other options at their default. We recommend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click **Create**.
 4. Perform the following:
@@ -136,7 +136,16 @@ In this step, you will generate a file in OIC and make use of variables in your 
 
 ***Save your integration.***
 
-### **Step 2: Append to file**
+### **Step 2: Modify `getData` to use the variables created**
+
+Recall that the `getData` node had a hard-coded directory and name. You will modify the `Map to getData` node to use the variables created in [step 1](#step-1-initialize-file-and-variables).
+1. Click `Map to getData`, then click the pencil icon.
+2. Open **FileReadRequest** on the RHS. Drag `$FILENAME` to `filename`, and `$FILEDIR` to `directory`. _Even though the filename and directory variables are still the same as before in the `getData` node, they will be overwritten at runtime._
+3. **Validate** and **Close**.
+
+***Save your integration.***
+
+### **Step 3: Append to file**
 
 In this step, you will append data to the file you just initialized.
 1. Hover your cursor over the grey arrow right after "updateTable", and choose the **Stage File** action.
@@ -151,7 +160,7 @@ Expand the RHS variables as before, and also expand **currRow** to the column va
 
 ***Save your integration.***
 
-### **Step 3: Send an email notification**
+### **Step 4: Send an email notification**
 
 In this step, you will configure OIC to send you the file you just built.
 1. Hover your cursor over the grey arrow pointing to the stop node (at the very end). Search for "notification, then select **Notification**. Give it a name, for instance "sendEmail", then click **Create**.
@@ -175,7 +184,7 @@ See attached file for integration results.
 
 ***Save your integration.***
 
-### **Step 4: Activate, Test, Monitor**
+### **Step 5: Activate, Test, Monitor**
 
 Now, you can follow the same steps as in steps 5 and 6 of section 1 to activate and test the integration. You should see the same result as the previous integration, but you will also receive an email containing the CSV for the table you have been working on. For your convenience the text instructions are reprinted below.
 
