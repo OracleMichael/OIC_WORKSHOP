@@ -139,7 +139,7 @@ In this step, you will generate a file in OIC and make use of variables in your 
 ### **Step 2: Modify `getData` to use the variables created**
 
 Recall that the `getData` node had a hard-coded directory and name. You will modify the `Map to getData` node to use the variables created in [step 1](#step-1-initialize-file-and-variables).
-1. Click `Map to getData`, then click the pencil icon.
+1. Select the `Map to getData` node, and click the pencil icon to **edit** the mapper.
 2. Open **FileReadRequest** on the RHS. Drag `$FILENAME` to `filename`, and `$FILEDIR` to `directory`. _Even though the filename and directory variables are still the same as before in the `getData` node, they will be overwritten at runtime._
 3. **Validate** and **Close**.
 
@@ -147,16 +147,18 @@ Recall that the `getData` node had a hard-coded directory and name. You will mod
 
 ### **Step 3: Append to file**
 
-In this step, you will append data to the file you just initialized.
-1. Hover your cursor over the grey arrow right after "updateTable", and choose the **Stage File** action.
-2. In the wizard, give the action a name, for instance "appendToFile", and click **Next**.
-3. Choose "Write File" for the **Stage File Operation**, and follow the same steps in part 5 for the file name and output directory. **Check the box for "Append to Existing File".** Then click **Next**.
+In this step, you will append data to the file you initialized earlier.
+1. Right after `insertIntoTable`, add a **Stage File** action.
+2. In the wizard, give the action a name, for instance `appendToFile`, and click **Next**.
+3. Choose `Write File` for the **Stage File Operation**, and follow the same steps in [step 1](#step-1-initialize-file-and-variables) for the file name and output directory. **Check the box for "Append to Existing File".** Then click **Next**.
 4. As before, make sure it is specifying CSV as the file format. Click **Next**.
-5. As before, choose [person.csv](person.csv), which is located in this git repository. The **record name** can be "record", and the **recordset name** can be "recordSet". Then click **Next**.
+5. As before, choose [person_buildfile.csv](person_buildfile.csv). The **record name** can be `record`, and the **recordset name** can be `recordSet`. Then click **Next**.
 6. Click **Done**.
 7. Select the **Map to appendToFile** node, and click the pencil icon to **edit** the mapper.
-8. Map the **currRow** TODO
-Expand the RHS variables as before, and also expand **currRow** to the column variables on the LHS. Perform the same mapping as in the mapping to update the rows (see parts 7-10 of step 4 of section 1), then **Validate** and **Close**.
+8. On the LHS, expand **getData Response > SyncReadFileResponse > FileReadResponse > recordSet**. On the RHS, expand **recordSet**. Map the left **record** to the right **record**. Click the **XSLT** button, then on the RHS expand **recordSet > for-each > record**. On the LHS, expand **record**. As before, map like variables to like, and apply these two mappings (hard-codings?); see [step 5 of section 1](#step-5-insert-data-into-atp) for a refresher:
+   - `TIMESTAMP` = `fn:current-dateTime()`
+   - `CREATED_BY` = `"[YOUR NAME]"`
+9. **Validate** and **Close**.
 
 ***Save your integration.***
 
