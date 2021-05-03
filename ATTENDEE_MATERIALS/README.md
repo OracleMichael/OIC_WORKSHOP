@@ -94,11 +94,11 @@ This step inserts the data into ATP.
 ### **Step 5: Activate integration**
 
 This step goes through the process of activating and testing integrations.
-1. First, you will need to resolve any errors that are present in the integration. You can see how many errors/warnings there are by a red/blue circled number next to "Last Saved". If you performed all the steps correctly, you should only see a red circled 1. You can click the circle to view the error and hover over the single entry to view the error.
-2. This error is resolved by **enabling a tracking variable** for the integration. Click the menu under the save button and select **Tracking**.
-3. Expand the "schedule" variable, and drag the "startTime" variable over the first "Drag a trigger field here". Instead of dragging you can also click the "startTime" variable and click the single right chevron. Click **Save**.
+1. First, you will need to resolve any errors that are present in the integration. You can see how many errors/warnings there are by a red/blue circled number next to "Last Saved". If you do not see just a red circled one, please contact a workshop instructor to help you resolve the extra issues. You can click the circle to view the error and hover over the entries to view the errors.
+2. Otherwise, the only error that appears is one related to tracking. This error is resolved by **enabling a tracking variable** for the integration. Click the menu under the save button and select **Tracking**.
+3. Expand the **schedule** variable, and drag the `startTime` variable over the first **Drag a trigger field here**. Instead of dragging you can also click the `startTime` variable and click the single right chevron. Click **Save**.
 4. Now your integration is ready for activation. **Save your integration**, then click **Close**. This brings you back to the integration home screen, and you can see that your status has changed from "Draft" to "Configured". Hover your cursor over your integration and click the "Power Button".
-5. In the dialog box, check the box for "Enable Tracing", and also the box for "Include Payload". Then click **Activate**. _Note: the boxes for "Enable Tracing" and "Include Payload" are generally only checked when testing an integration, as they tend to reveal sensitive/confidential information. Also, here we could create a schedule if we wanted to, but as we will never use it, it is simpler to skip that step._
+5. In the dialog box, check the box for "Enable Tracing", and also the box for "Include Payload". Then click **Activate**. _Note: the boxes for "Enable Tracing" and "Include Payload" are generally only checked when testing an integration, as they tend to reveal sensitive/confidential information. Also, here we could create a schedule if we wanted to by clicking **Activate and Schedule**, but as we will never use the schedule, it is simpler to skip that step._
 
 Now your integration is active, and you can run it to perform business operations.
 
@@ -106,11 +106,11 @@ Now your integration is active, and you can run it to perform business operation
 
 This step shows how to manually trigger an integration and how to debug integrations.
 1. Hover your cursor over your integration and click the "Play Button". Then click **Submit Now**.
-2. Click **Submit Now**.
-3. Now, the integration will run and either complete or throw an error during execution. To view the "job" that was just initiated, navigate back to the integration home page, then go to **Monitoring** > **Integrations** > **Tracking**.
-4. In this page, you will see integrations that have completed execution in the given time frame (default is last hour). It is likely that your integration has already executed and given a success or error. Drill down into the integration run by clicking on the black text (here, it is "start Time: 2021-...").
+2. Confirm that "Ad hoc request" is selected, then click **Submit Now**.
+3. Now, the integration will run and either complete or throw an error during execution. To view the "job" that was just initiated, navigate back to the integration home page, then go to **Monitoring > Integrations > Tracking**.
+4. In this page, you will see integrations that have completed execution. It is likely that your integration has already executed and given a success or error. Drill down into the integration run by clicking on the black text (here, it is "start Time: 2021-..."). _If you do not see the most recent job you initiated, the filters might be too strict. Click **clear** to remove all filters and view all integrations executed within the last hour._
 5. In this page, you will see the execution pathway highlighted in green. For most integrations, the structure is linear enough that it is not really interesting to look at (unless there is an error), but the green pathway is useful for complex integrations that use branching logic and "fault handlers" (basically a try-catch code block).
-6. Now you will take a look at the activity stream. Click the menu icon under the "Close" button in the upper right corner, and select **View Activity Stream**. You can click on the messages to view the payloads that were sent (enabled by checking the "Include Payload" option when activating the integration). _Note: should this integration run have resulted in an error, at the end of the activity stream it will show the error message. If you ran into one of these, please contact your workshop instructor for specific debugging._
+6. Now you will take a look at the activity stream. Click the menu icon under the "Close" button in the upper right corner, and select **View Activity Stream**. You can click on the **Message**s to view the payloads that were sent (enabled by checking the "Include Payload" option when activating the integration). _Note: should this integration run have resulted in an error, at the end of the activity stream it will show the error message. If you ran into one of these, please contact your workshop instructor._
 
 That's it! For some of you, you will have built your first integration on Oracle Integration Cloud!
 
