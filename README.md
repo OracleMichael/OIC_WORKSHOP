@@ -25,7 +25,7 @@ There is also an optional additional exploration of OIC that workshop attendees 
   <li>Unable to write data to ATP</li></ul>
 </li></ol>
 
-As of now only the first one will have written instructions here.
+As of now only the first one will have written instructions here. All additional exploration options will have attendees create a new version of their integration so that all the work they have completed up to this point remains intact.
 
 Other things to explore:
 - You can now write your own XSLT mappings in the "Code" tab of a mapper. This should only be used by experienced OIC users, as its definition is very strict and a small change can cause the mapper to fail.
