@@ -65,12 +65,13 @@ This step initializes the integration that you will build on throughout the hand
 
 ### **Step 4: Invoke FTP to retrieve data**
 
-This step sets up the invocation of FTP to retrieve all data from the file. Our target file is called **person.csv**. You may preview the file in the repository [here](person.csv).
+This step sets up the invocation of FTP to retrieve all data from the file. Our target file is called **[person.csv](person.csv)**. Please download this file as you will need it in this step.
 1. Hover your cursor over the grey arrow from the schedule to the stop node, and **click the plus**. Locate the FTP connection you configured.
-2. In the wizard, give the invocation a name. These names only have to be unique within the integration, so they can be generic like "getTable". TODO
-For the **operation to perform**, select "Perform an Operation On a Table", and choose "Select". Then click **Next**. _Note: you may also opt to "Run a SQL Statement". This option allows you to customize your query, but is often problematic due to the need to confirm that the query runs properly and the decrease in user control over the result of the query. For these reasons we recommend you to select "Perform an Operation..." for this hands-on exercise._
-3. Select "ADMIN" as the **Schema** and **search** for your custom table. Your table is formatted as such: `WORKSHOP_$_#..#` where `$` represents the first initial of your first name (for users with multiple names as the first name, take the first initial of the first word of the first name) and `#..#` represents your last name (for users with multiple names as the last name, all last names are used, separated by underscores). So "Chen, Michael" would be "WORKSHOP_M_CHEN", and "lname1 lname2, fname1 fname2" would be "WORKSHOP_F_LNAME1_LNAME2". ***Alternatively***, you can click **search** with no search parameter and look for a table that bears a close resemblance to your name (they all start with "WORKSHOP_"). Once you have located your provisioned table, you may double-click it or single-click and click the single right chevron to add it to the right side. Then click **Import Tables**.
-4. There are no actions to perform for this page and the next, but you may view the query being run by scrolling down and clicking **Edit** for the "Review and edit SQL Query" section. Click **Next** to arrive at the summary page, and finally click **Done**.
+2. In the wizard, give the invocation a name. These names only have to be unique within the integration, so they can be generic like `getData`. Click **Next**.
+3. Leave the **operation** as `Read a File`. For the **Input Directory**, enter `/workshop`, and for the **File Name**, enter `person.csv`. Click **Next**.
+4. Leave the default settings for this page (`Yes` and `Sample delimited document`). Click **Next**.
+5. Upload [person.csv](person.csv) for the **Delimited Data File**. For the **Record Name**, enter `record`, and for the **Recordset Name**, enter `recordSet` (the exact name doesn't matter, they are variable names for the mapper). Leave everything else as is, then click **Next**. _Note: even though this is the entire file you will be processing in your integration (8 names), only the headers are required. So you could upload a modified version of person.csv that consists solely of the headers and that would work too._
+6. You may review some summary information about the ftp connection configuration. Click **Done**.
 
 ***Save your integration.***
 
