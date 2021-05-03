@@ -1,6 +1,4 @@
-# WORKSHOP-OIC
-
-This repository houses the materials for the hands-on portion of the workshop. The hands-on portion is organized into **sections** that contain multiple **steps**, with each step containing multiple **parts** (so part 1.3.2 is part 2 of step 3 of section 1).
+# Lab Instructions
 
 ## Prerequisites
 
