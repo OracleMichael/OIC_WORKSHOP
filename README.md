@@ -6,7 +6,7 @@ This repository details how to create an integration from scratch and is designe
 - Create a connection to the OIC FTP Server
   - Embedded FTP Server can be enabled for the OIC instance
 - Create an integration
-- Integration (version 1.0) does this:
+- Integration (version 1.0.0) does this:
   - Pulls data from a specific CSV file on the FTP server
   - For each row of data from the CSV file, create a new row in the ATP table with a timestamp and your name
     - This allows users to check what data they have created
@@ -18,11 +18,12 @@ This repository details how to create an integration from scratch and is designe
 
 There is also an optional additional exploration of OIC that workshop attendees can do if they complete early:
 <ol>
-<li>Add an email notification at the end of the integration that sends you an email if the integration successfully completes, as well as an attachment of the data that was inserted.</li>
+<li>Add an email notification at the end of the integration that sends you an email if the integration successfully completes, as well as an attachment of the data that was inserted. Designated version is 1.1.0.</li>
 <li>Add some error handling logic to the integration to avoid common errors, such as:<ul>
   <li>File not found on the FTP server</li>
   <li>Table not found in ATP</li>
   <li>Unable to write data to ATP</li></ul>
+Designated version is 1.2.0.
 </li></ol>
 
 As of now only the first one will have written instructions here. All additional exploration options will have attendees create a new version of their integration so that all the work they have completed up to this point remains intact.
