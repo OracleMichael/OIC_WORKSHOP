@@ -116,21 +116,23 @@ That's it! For some of you, you will have built your first integration on Oracle
 
 ## Section 2: Sending a notification and building a file
 
-This section is optional, and it builds on section 1. Attendees who complete section 1 are strongly encouraged to move on to this section and finish as much of it as they can.
+This section is optional, and it builds on section 1. Attendees who complete section 1 are strongly encouraged to move on to this section and finish as much of it as they can. You will create a new version of your integration, then add enhancements to it. Here is a diagram of the integration you will build:
+![](images/diagram_notif.png)
 
 ### **Step 1: Initialize file and variables**
 
-In this step, you will create a file in OIC and make use of variables in your integration to simplify the workflow. **Important: you must deactivate your integration before you begin this step. To do so, find your integration and click the "power button" to deactivate it.**
-1. In your integration, hover your cursor over the grey arrow between "Schedule" and "Map to getTable". Search for "assign" and select the **Assign** action. In the dialog pop up box, give it a name (for instance "initVars") and click **Create**.
-2. Click the lower-right plus to add a variable. **Change** the "initVars_assignment_1" variable name to `FILENAME`. Then, click the pencil icon to give this variable a value. For the Expression, you will simply write `"person.csv"`, quotation marks included. _Make sure the quotation marks are "unformatted", i.e. not the so-called “smart quotation marks”._ Add another variable called `FILEDIR` with value `"/"`. Once you are done, click **Close**.
-3. Hover your cursor over the grey arrow between "getTable" and "updateTable". Search for "stage file" and select the **Stage File** action.
-4. In the wizard, give the action a name, for instance "initFile", and click **Next**.
-5. **Choose** the **Stage File Operation** to be **Write File**. For the **file name**, click the pencil icon, and drag `$FILENAME` to the expression box (or use the chevron). Then click **Save** and **Exit Expression Builder**. Do the same thing for **output directory**, except using the variable `$FILEDIR` this time. Then click **Next**.
-6. Ensure that you want to specify the structure of the contents of the file as CSV, then click **Next**.
-7. For the **delimited data file**, choose [person.csv](person.csv), which is located in this git repository. The **record name** can be "record", and the **recordset name** can be "recordSet" (these are name assignments that show up on the mapper). Then click **Next**.
-8. Click **Done**.
-9. Select the **Map to initFile** node, and click the pencil icon to **edit** the mapper.
-10. On the RHS, **expand** recordSet and record. For each of the four variables, right-click on them and select **Create Target Node**. This allows you to edit the expression for this variable without using a LHS variable. Edit the expression (clicking the wrench-screwdriver icon) and enter the variable name in quotes, so for `ID` the expression would be `"ID"`, etc. Once this is done, **Validate** and **Close** the mapper.
+In this step, you will generate a file in OIC and make use of variables in your integration to simplify the workflow.
+1. Navigate to the page that lists all integrations. Hover over the **integration you completed in section 1**. This should have version number `01.00.0000`. Click the "Menu" button, then **Create New Version**. Since you will make a **minor** change in this section, you will assign a new version number of `01.01.0000`. Notice that you now have two integrations created by you: one still-active v1.0.0, and one "configured" v1.1.0.
+2. Enter the newly spawned integration. In your integration, add an **Assign** action right after the `Schedule` node. (Hover your cursor over the grey arrow between `Schedule` and `Map to getTable`. Search for `assign` and select the **Assign** action. In the dialog pop up box, give it a name (for instance `initVars`) and click **Create**.)
+3. Click the lower-right plus to add a variable. Change the `initVars_assignment_1` variable name to `FILENAME`. Then, click the pencil icon to give this variable a value. For the Expression, you will simply write `"person.csv"`, quotation marks included, then **validate** and **close** out of the expression builder. _Make sure the quotation marks are "unformatted", i.e. not the so-called “smart quotation marks”._ Add another variable called `FILEDIR` with value `"/workshop"`. Once you are done, click **Close**.
+4. Right after `initVars`, add a **Stage File** action.
+5. In the wizard, give the action a name, for instance `initFile`, and click **Next**.
+6. **Choose** the **Stage File Operation** to be **Write File**. For the **file name**, click the pencil icon, and drag `$FILENAME` to the expression box (or use the chevron). Then click **Save** and **Exit Expression Builder**. Do the same thing for **output directory**, except using the variable `$FILEDIR` this time. Then click **Next**.
+7. Ensure that you want to specify the structure of the contents of the file as CSV, then click **Next**.
+8. For the **delimited data file**, choose [person_buildfile.csv](person_buildfile.csv). The **record name** can be `record`, and the **recordset name** can be `recordSet`. Then click **Next**.
+9. Click **Done**.
+10. Select the **Map to initFile** node, and click the pencil icon to **edit** the mapper.
+11. On the RHS, expand **recordSet > record**. For each of the secen variables, right-click on them and select **Create Target Node**. This allows you to edit the expression for this variable without using a LHS variable. Edit the expression (clicking the wrench-screwdriver icon) and enter the variable name in quotes, so for `Fname` the expression would be `"Fname"`, etc. Once this is done, **Validate** and **Close** the mapper.
 
 ***Save your integration.***
 

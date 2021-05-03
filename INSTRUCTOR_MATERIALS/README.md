@@ -18,6 +18,7 @@ Prior to beginning the workshop, the following items need to be completed:
 4. Create a folder called "workshop" under the home directory and enable full access for all users to the directory
 5. Using SQL Developer create a new table called `WORKSHOP` with all the columns of person.csv, and two more columns: TIMESTAMP (type TIMESTAMP) and CREATED_BY (type VARCHAR2(255))
    - It might be helpful to just upload person.csv, then delete all the data and create the extra columns. Finally make TIMESTAMP, CREATED_BY, and EMAIL primary key columns
+
 SQL used to generate my table: (has some random indices since I modified the table after creating it)
 ```
   CREATE TABLE "ADMIN"."WORKSHOP" 
