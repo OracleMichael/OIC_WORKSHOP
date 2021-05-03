@@ -148,7 +148,7 @@ Recall that the `getData` node had a hard-coded directory and name. You will mod
 ### **Step 3: Append to file**
 
 In this step, you will append data to the file you initialized earlier.
-1. Right after `insertIntoTable`, add a **Stage File** action.
+1. Right after `insertIntoTable` (at the very end), add a **Stage File** action.
 2. In the wizard, give the action a name, for instance `appendToFile`, and click **Next**.
 3. Choose `Write File` for the **Stage File Operation**, and follow the same steps in [step 1](#step-1-initialize-file-and-variables) for the file name and output directory. **Check the box for "Append to Existing File".** Then click **Next**.
 4. As before, make sure it is specifying CSV as the file format. Click **Next**.
@@ -165,13 +165,13 @@ In this step, you will append data to the file you initialized earlier.
 ### **Step 4: Send an email notification**
 
 In this step, you will configure OIC to send you the file you just built.
-1. Hover your cursor over the grey arrow pointing to the stop node (at the very end). Search for "notification, then select **Notification**. Give it a name, for instance "sendEmail", then click **Create**.
+1. Right after `appendToFile` (at the very end), add a **Notification** action. Give it a name, for instance `sendEmail`, then click **Create**.
 2. Write an email, OIC style:
-  - For the **sender**, click the pencil icon and type `"no-reply@oracle.com"`.
-  - For the **recipient**, click the pencil icon and type your email surrounded by quotes.
-  - For the **subject**, click the pencil icon and enter something descriptive surrounded by quotes, such as `"ATT Workshop: integration run"`.
-  - For the **attachments**, click the plus icon and search for "FileReference". There should only be one such "FileReference", for instance nested under `$initFile > *WriteResponse > *WriteResponse > ICSFile > *FileReference`. _Note: even though this file reference comes from the "initFile" action, which comes before the appendToFile action, the data is modified before the email notification is fired, so the file will include all of the data processed by the foreach loop._
-  - For the **body**, enter this text:
+   - For the **sender**, click the pencil icon and type `"no-reply@oracle.com"`.
+   - For the **recipient**, click the pencil icon and type your email surrounded by quotes.
+   - For the **subject**, click the pencil icon and enter something descriptive surrounded by quotes, such as `"OIC Workshop: integration run"`.
+   - For the **attachments**, click the plus icon and search for `FileReference`. There are two instances, and both work, for instance nested under **$initFile > WriteResponse > WriteResponse > ICSFile > FileReference**. _Note: even though this file reference comes from the "initFile" action, which comes before the appendToFile action, the data is modified before the email notification is fired, so the file will include all of the data processed by the foreach loop._
+   - For the **body**, enter this text:
 ```
 Integration successfully executed.
 
@@ -180,9 +180,10 @@ Invoked by: {invokedBy}
 
 See attached file for integration results.
 ```
-  _Note: you can write the email in HTML. You can view an example of an HTML email (with variables) [here](email.html)_
-  - For the **email parameters**, click the + and rename it to "instanceId". Click the pencil icon to edit the value of the parameter, and search for "instanceId" (there should only be one).
-  - Add another parameter for "invokedBy", searching for "invokedBy" (there should only be one).
+_Note: you can write the email in HTML. You can view an example of an HTML email (with variables) [here](email.html)_
+   - For the **email parameters**, click the + and rename it to `instanceId`. Click the pencil icon to edit the value of the parameter, and search for `instanceId` (there should only be one).
+   - Add another parameter for `invokedBy`, searching for `invokedBy` (there should only be one).
+3. **Validate** and **Close**.
 
 ***Save your integration.***
 
