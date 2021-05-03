@@ -25,19 +25,21 @@ You may use [SQL Developer](https://www.oracle.com/database/technologies/appdev/
 ### **Step 1: Create the ATP Connection**
 
 Now that you have the wallet file, you can create the connection.
-1. Navigate to the integration home page: from [cloud.oracle.com](cloud.oracle.com), click on the hamburger menu, then on **Developer Services**, and select **Integration** under Application Integration. Change the compartment to `OIC_Labs` if it is not already set to that, then click on **OIC_workshop**. Finally, click on the **Service Console** to navigate to the home page. In the future, you can directly access the link for this home page if you have it saved somewhere. _We recommend that you bookmark OIC home pages such as this one._
-2. Click the hamburger menu in the upper left corner and select **Integrations**, then **Connections**.
-3. **Create** a connection (upper right corner), then after the dialog box pops up, search for `ATP` and select the `Oracle ATP` adapter.
-4. In the wizard, give the connection a name and leave the other options at their default. We recommend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click **Create**.
-5. Perform the following:
-  <ul>
-  	<li>In the security section, click the upload button (square button with up arrow) and upload the wallet file you downloaded. This should be the entire zip file called `Wallet_DB202105022139.zip`.</li>
-  	<li>For the **Wallet Password**, type the password you provided when you downloaded the wallet file.</li>
-  	<li>For the **Database Service Username**, type "ADMIN".</li>
-  	<li>For the **Database Service Password**, your workshop instructor will provide you with the admin password.</li>
-  	<li>Finally, right above the security section, for the not-so-optional "Service Name (optional)" enter `db202105022139_high`. _Note: to locate a list of valid service names, unzip the wallet file, then open the tnsnames.ora file._</li>
-  </ul>
-6. Once you are done with the above, click **Test**. The connection should give you a green banner notification, and the connection should show as 100% configured (100% in a blue oval). **Save** your connection.
+<ol>
+	<li>Navigate to the integration home page: from <a href='cloud.oracle.com'>cloud.oracle.com</a>, click on the hamburger menu, then on <b>Developer Services</b>, and select <b>Integration</b> under Application Integration. Change the compartment to <code>OIC_Labs</code> if it is not already set to that, then click on <b>OIC_workshop</b>. Finally, click on the <b>Service Console</b> to navigate to the home page. In the future, you can directly access the link for this home page if you have it saved somewhere. _We recommend that you bookmark OIC home pages such as this one._</li>
+	<li>Click the hamburger menu in the upper left corner and select <b>Integrations</b>, then <b>Connections</b>.</li>
+	<li><b>Create</b> a connection (upper right corner), then after the dialog box pops up, search for <code>ATP</code> and select the <code>Oracle ATP</code> adapter.</li>
+	<li>In the wizard, give the connection a name and leave the other options at their default. We recommend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click <b>Create</b>.</li>
+	<li>Perform the following:
+	<ul>
+		<li>In the security section, click the upload button (square button with up arrow) and upload the wallet file you downloaded. This should be the entire zip file called <code>Wallet_DB202105022139.zip</code>.</li>
+	  	<li>For the <b>Wallet Password</b>, type the password you provided when you downloaded the wallet file.</li>
+	  	<li>For the <b>Database Service Username</b>, type <code>ADMIN</code>.</li>
+	  	<li>For the <b>Database Service Password</b>, your workshop instructor will provide you with the admin password.</li>
+	  	<li>Finally, right above the security section, for the not-so-optional "Service Name (optional)" enter <code>db202105022139_high</code>. _Note: to locate a list of valid service names, unzip the wallet file, then open the tnsnames.ora file._</li>
+	</ul>
+	<li>Once you are done with the above, click <b>Test</b>. The connection should give you a green banner notification, and the connection should show as 100% configured (100% in a blue oval). <b>Save</b> your connection.</li>
+</ol>
 
 ### **Step 2: Create the FTP Connection**
 
