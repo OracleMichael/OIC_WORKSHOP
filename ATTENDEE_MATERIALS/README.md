@@ -15,7 +15,7 @@ There are a few crucial steps prior to being able to successfully create all par
 ### **Step 1: Retrieve the ATP Wallet File**
 
 Prior to connecting to ATP, you will need the wallet file.
-1. Log in to **[cloud.oracle.com](cloud.oracle.com)**.
+1. Log in to **[cloud.oracle.com](https://cloud.oracle.com)**.
 2. Click the hamburger menu `Ξ` (looks like three stacked horizontal lines) in the upper left corner, click **Oracle Database**, and select **Autonomous Transaction Processing**.
 3. On the left, change the **compartment** to the compartment `OIC_Labs`. Then, click on the ATP instance called `workshopDB`. _Make sure your region is "US East (Ashburn)" or you will not see the instance._
 4. Click the **DB Connection** button. Keep the wallet type as "Instance Wallet", then click **Download Wallet**. This will give you a pop-up wizard to download the wallet. Add a password for the wallet. **Remember this password, as you will use it to create the connection later in [section 1](#section-1-basic-integration).**
@@ -29,7 +29,7 @@ In this section, you will learn how to set up an integration that pulls data fro
 ### **Step 1: Create the ATP Connection**
 
 Now that you have the wallet file, you can create the connection to ATP.
-1. Navigate to the integration home page: from [cloud.oracle.com](cloud.oracle.com), click on the hamburger menu, then on **Developer Services**, and select **Integration** under Application Integration. Change the compartment to `OIC_Labs` if it is not already set to that, then click on **OIC_workshop**. Finally, click on the **Service Console** to navigate to the home page. In the future, you can directly access the link for this home page if you have it saved somewhere. _We recommend that you bookmark OIC home pages such as this one._
+1. Navigate to the integration home page: from [cloud.oracle.com](https://cloud.oracle.com), click on the hamburger menu, then on **Developer Services**, and select **Integration** under Application Integration. Change the compartment to `OIC_Labs` if it is not already set to that, then click on **OIC_workshop**. Finally, click on the **Service Console** to navigate to the home page. In the future, you can directly access the link for this home page if you have it saved somewhere. _We recommend that you bookmark OIC home pages such as this one._
 2. Click the hamburger menu in the upper left corner and select **Integrations > Connections**.
 3. **Create** a connection (upper right corner), then after the dialog box pops up, search for `ATP` and select the `Oracle ATP` adapter.
 4. In the wizard, give the connection a name and leave the other options at their default. We recommend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click **Create**.
@@ -44,7 +44,7 @@ Now that you have the wallet file, you can create the connection to ATP.
 
 ### **Step 2: Create the FTP Connection**
 
-Here you will connect to the embedded file server on OIC. You may read more about it in [this blog post](https://blogs.oracle.com/integration/embedded-file-server-sftp-in-oracle-integration).
+Here you will connect to the embedded file server on OIC. You can read more about it in [this blog post](https://blogs.oracle.com/integration/embedded-file-server-sftp-in-oracle-integration).
 1. In order to connect to the FTP server, you will need the **FTP Server Host Address** and **FTP Server Port** of the embedded file server on OIC. Navigate to your OIC home page, click the hamburger menu in the upper left corner, then select **Settings > File Server > Settings**.
 2. While the settings are loading, open a new tab and navigate to your OIC home page. Click the hamburger menu in the upper left corner and select **Integrations > Connections**. Once again, **create** a connection, then after the dialog box pops up, search for `FTP` and select the `FTP` adapter.
 3. In the wizard, give the connection a name and leave the other options at their default. We recommend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click **Create**.
@@ -180,7 +180,7 @@ Invoked by: {invokedBy}
 
 See attached file for integration results.
 ```
-_Note: you can write the email in HTML. You can view an example of an HTML email (with variables) [here](email.html)_
+_Note: you can write the email in HTML. You can view an example of an HTML email (with variables) [here](email.html)._
    - For the **email parameters**, click the + and rename it to `instanceId`. Click the pencil icon to edit the value of the parameter, and search for `instanceId` (there should only be one).
    - Add another parameter for `invokedBy`, searching for `invokedBy` (there should only be one).
 3. **Validate** and **Close**.
