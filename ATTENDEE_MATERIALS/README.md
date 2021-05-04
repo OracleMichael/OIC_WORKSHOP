@@ -68,7 +68,7 @@ This step initializes the integration that you will build on throughout the hand
 This step sets up the invocation of FTP to retrieve all data from the file. Our target file is called **[person.csv](person.csv)**. Please download this file as you will need it in this step.
 1. Hover your cursor over the grey arrow from the schedule to the stop node, and **click the plus**. Select the FTP connection you configured.
 2. In the wizard, give the invocation a name. These names only have to be unique within the integration, so they can be generic like `getData`. Click **Next**.
-3. Leave the **operation** as `Read a File`. For the **Input Directory**, enter `/workshop`, and for the **File Name**, enter `person.csv`. Click **Next**.
+3. Leave the **operation** as `Read a File`. Leave the file format as **binary**. For the **Input Directory**, enter `/workshop`, and for the **File Name**, enter `person.csv`. Click **Next**.
 4. Leave the default settings for this page (`Yes` and `Sample delimited document`). Click **Next**.
 5. Upload [person.csv](person.csv) for the **Delimited Data File**. For the **Record Name**, enter `record`, and for the **Recordset Name**, enter `recordSet` (the exact name doesn't matter, they are variable names for the mapper). Leave everything else as is, then click **Next**. _Note: even though this is the entire file you will be processing in your integration (8 names), only the headers are required. So you could upload a modified version of person.csv that consists solely of the headers and that would work too._
 6. You may review some summary information about the ftp connection configuration. Click **Done**.
