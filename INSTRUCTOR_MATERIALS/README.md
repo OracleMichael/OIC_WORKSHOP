@@ -12,7 +12,7 @@ Prior to beginning the workshop, the following items need to be completed:
 
 ## OIC setup
 
-1. In IDCS, add all OIC users to all roles in the OIC cloud service - admin role
+1. In IDCS, add all OIC users to all roles in the OIC cloud service (including admin)
 2. Enable file server for OIC
 3. Ensure that the file server authentication is at least "Password"
 4. In the file server settings, enable all users with default setting (ssh key not needed)
