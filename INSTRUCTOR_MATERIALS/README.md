@@ -14,9 +14,10 @@ Prior to beginning the workshop, the following items need to be completed:
 
 1. In IDCS, add all OIC users to all roles in the OIC cloud service - admin role
 2. Enable file server for OIC
-3. In the file server settings, enable all users with default setting
-4. Create a folder called "workshop" under the home directory and enable full access for all users to the directory
-5. Using SQL Developer create a new table called `WORKSHOP` with all the columns of person.csv, and two more columns: TIMESTAMP (type TIMESTAMP) and CREATED_BY (type VARCHAR2(255))
+3. Ensure that the file server authentication is at least "Password"
+4. In the file server settings, enable all users with default setting (ssh key not needed)
+5. Create a folder called "workshop" under the home directory and enable full access for all users to the directory
+6. Using SQL Developer create a new table called `WORKSHOP` with all the columns of person.csv, and two more columns: TIMESTAMP (type TIMESTAMP) and CREATED_BY (type VARCHAR2(255))
    - It might be helpful to just upload person.csv, then delete all the data and create the extra columns. Finally make TIMESTAMP, CREATED_BY, and EMAIL primary key columns
 
 SQL used to generate my table: (has some random indices since I modified the table after creating it)
