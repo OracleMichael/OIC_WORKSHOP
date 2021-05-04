@@ -14,8 +14,8 @@ There are a few crucial steps prior to being able to successfully create all par
 
 ### **Step 1: Retrieve the ATP Wallet File**
 
-Prior to connecting to ATP, you will need the wallet file.
-1. Log in to **[cloud.oracle.com](https://cloud.oracle.com)**.
+Prior to connecting to ATP, you will need the wallet file. **You will not need to access the OIC home page for this step.** If you are unable to complete this step, you can download the wallet file from the repository [here](Wallet_DB202105022139.zip).
+1. Log in to the Oracle Cloud Infrastructure (OCI) console at **[cloud.oracle.com](https://cloud.oracle.com)**.
 2. Click the hamburger menu `Ξ` (looks like three stacked horizontal lines) in the upper left corner, click **Oracle Database**, and select **Autonomous Transaction Processing**.
 3. On the left, change the **compartment** to the compartment `OIC_Labs`. Then, click on the ATP instance called `workshopDB`. _Make sure your region is "US East (Ashburn)" or you will not see the instance._
 4. Click the **DB Connection** button. Keep the wallet type as "Instance Wallet", then click **Download Wallet**. This will give you a pop-up wizard to download the wallet. Add a password for the wallet. **Remember this password, as you will use it to create the connection later in [section 1](#section-1-basic-integration).**
@@ -44,9 +44,9 @@ Now that you have the wallet file, you can create the connection to ATP.
 
 ### **Step 2: Create the FTP Connection**
 
-Here you will connect to the embedded file server on OIC. You can read more about it in [this blog post](https://blogs.oracle.com/integration/embedded-file-server-sftp-in-oracle-integration).
+Here you will connect to the embedded file server on OIC. You can read more about it in [this blog post](https://blogs.oracle.com/integration/embedded-file-server-sftp-in-oracle-integration). If you are unable to access the File Server settings, your lab instructor will provide you with the IP address and port of the FTP server.
 1. In order to connect to the FTP server, you will need the **FTP Server Host Address** and **FTP Server Port** of the embedded file server on OIC. Navigate to your OIC home page, click the hamburger menu in the upper left corner, then select **Settings > File Server > Settings**.
-2. While the settings are loading, open a new tab and navigate to your OIC home page. Click the hamburger menu in the upper left corner and select **Integrations > Connections**. Once again, **create** a connection, then after the dialog box pops up, search for `FTP` and select the `FTP` adapter.
+2. While the settings are loading, **open a new tab** and navigate to your OIC home page. Click the hamburger menu in the upper left corner and select **Integrations > Connections**. Once again, **create** a connection, then after the dialog box pops up, search for `FTP` and select the `FTP` adapter.
 3. In the wizard, give the connection a name and leave the other options at their default. We recommend that you add your name to the connection name to differentiate it from connections created by other workshop attendees. Then click **Create**.
 4. Perform the following:
    - For the **FTP Host Server Address**, type in the IP address of the embedded file server.
@@ -83,7 +83,8 @@ This step inserts the data into ATP.
 3. Select `ADMIN` as the **Schema** and **search** for the table called `WORKSHOP`. Once you have located the table, you may double-click it or single-click and click the single right chevron to add it to the right side. Then click **Import Tables**.
 4. There are no more actions to perform, and the remaining pages are there to show information. Click **Next** and **Done**.
 5. Select the **Map to insertIntoTable**, and click on the pencil icon to **edit** the mapper.
-6. On the left hand side (LHS), expand **getData Response > SyncReadFileResponse > FileReadResponse > RecordSet**, which should contain a single **record** variable. Drag **record** to **Workshop**. This should create a line from **record** to **Workshop**, indicating that a mapping was created between the two objects. _Note: since both **record** and **Workshop** are container objects that consist of primitive variables, the mapping actually doesn't map any data. It only generates a "foreach" operator in the XSLT definition of the map._
+6. On the left hand side (LHS), expand **_getData_ Response > SyncReadFileResponse > FileReadResponse > RecordSet**, which should contain a single **record** variable. Drag **record** to **Workshop**. This should create a line from **record** to **Workshop**, indicating that a mapping was created between the two objects. _Note: since both **record** and **Workshop** are container objects that consist of primitive variables, the mapping actually doesn't map any data. It only generates a "foreach" operator in the XSLT definition of the map._
+   - _Note: in case you don't see the "getData Response" element, look for just "Response" as the name of the element is the same as the name of the FTP node you configured in the previous step (so if you gave it a name of "readFile" you would look for "readFile Response")._
 7. Now to map the variables within both objects. Click **XSLT** (easiest way is just ctrl+F or cmd+F to search for XSLT), then on the RHS expand **for-each > Workshop**. Also, on the LHS, expand **record**. Map all of the LHS variables to the RHS variables, so `record.Fname` to `Workshop.fname`, and so on.
 8. You will need to hard-code the `timestamp` and `createdBy` variables. Right-click on the `timestamp` variable, and select `Create Target Node`. An expression box should appear on the bottom if it has not already. Click the wrench+screwdriver icon (right side under the x) to enable editing of the expression. Enter this code as the expression: `fn:current-dateTime()`. Then click the check symbol (under the wrench+screwdriver) to save this expression.
 9. Create a target node for the `createdBy` variable and enter your name surrounded by quotes. For instance: `"John Doe"`.
@@ -94,11 +95,12 @@ This step inserts the data into ATP.
 ### **Step 6: Activate integration**
 
 This step goes through the process of activating and testing integrations.
-1. First, you will need to resolve any errors that are present in the integration. You can see how many errors/warnings there are by a red/blue circled number next to "Last Saved". If you do not see just a red circled one, please contact a workshop instructor to help you resolve the extra issues. You can click the circle to view the error and hover over the entries to view the errors.
-2. Otherwise, the only error that appears is one related to tracking. This error is resolved by **enabling a tracking variable** for the integration. Click the menu under the save button and select **Tracking**.
-3. Expand the **schedule** variable, and drag the `startTime` variable over the first **Drag a trigger field here**. Instead of dragging you can also click the `startTime` variable and click the single right chevron. Click **Save**.
-4. Now your integration is ready for activation. **Save your integration**, then click **Close**. This brings you back to the integration home screen, and you can see that your status has changed from "Draft" to "Configured". Hover your cursor over your integration and click the "Power Button".
-5. In the dialog box, check the box for "Enable Tracing", and also the box for "Include Payload". Then click **Activate**. _Note: the boxes for "Enable Tracing" and "Include Payload" are generally only checked when testing an integration, as they tend to reveal sensitive/confidential information. Also, here we could create a schedule if we wanted to by clicking **Activate and Schedule**, but as we will never use the schedule, it is simpler to skip that step._
+1. First, you will need to resolve any errors in the integration. The only error that should appear is one related to tracking. This error is resolved by **enabling a tracking variable** for the integration. Click the menu under the save button and select **Tracking**.
+   - You can see how many errors/warnings there are by a red/blue circled number next to "Last Saved".
+2. Expand the **schedule** variable, and drag the `startTime` variable over the first **Drag a trigger field here**. Instead of dragging you can also click the `startTime` variable and click the single right chevron. Click **Save**.
+   - If you still have additional warnings/errors, please contact a workshop instructor to help you resolve these issues. You can click the red/blue circled number and hover over the entries to view the errors.
+3. Now your integration is ready for activation. **Save your integration**, then click **Close**. This brings you back to the integration home screen, and you can see that your status has changed from "Draft" to "Configured". Hover your cursor over your integration and click the "Power Button".
+4. In the dialog box, check the box for "Enable Tracing", and also the box for "Include Payload". Then click **Activate**. _Note: the boxes for "Enable Tracing" and "Include Payload" are generally only checked when testing an integration, as they tend to reveal sensitive/confidential information. Also, here we could create a schedule if we wanted to by clicking **Activate and Schedule**, but as we will never use the schedule, it is simpler to skip that step._
 
 Now your integration is active, and you can run it to perform business operations.
 
@@ -107,7 +109,7 @@ Now your integration is active, and you can run it to perform business operation
 This step shows how to manually trigger an integration and how to debug integrations.
 1. Hover your cursor over your integration and click the "Play Button". Then click **Submit Now**.
 2. Confirm that "Ad hoc request" is selected, then click **Submit Now**.
-3. Now, the integration will run and either complete or throw an error during execution. To view the "job" that was just initiated, navigate back to the integration home page, then go to **Monitoring > Integrations > Tracking**.
+3. Now, the integration will run and either complete or throw an error during execution. To view the "job" that was just initiated, navigate back to the **OIC home page**, then go to **Monitoring > Integrations > Tracking**.
 4. In this page, you will see integrations that have completed execution. It is likely that your integration has already executed and given a success or error. Drill down into the integration run by clicking on the black text (here, it is "start Time: 2021-..."). _If you do not see the most recent job you initiated, the filters might be too strict. Click **clear** to remove all filters and view all integrations executed within the last hour._
 5. In this page, you will see the execution pathway highlighted in green. For most integrations, the structure is linear enough that it is not really interesting to look at (unless there is an error), but the green pathway is useful for complex integrations that use branching logic and "fault handlers" (basically a try-catch code block).
 6. Now you will take a look at the activity stream. Click the menu icon under the "Close" button in the upper right corner, and select **View Activity Stream**. You can click on the **Message**s to view the payloads that were sent (enabled by checking the "Include Payload" option when activating the integration). _Note: should this integration run have resulted in an error, at the end of the activity stream it will show the error message. If you ran into one of these, please contact your workshop instructor._
@@ -122,7 +124,7 @@ This section is optional, and it builds on section 1. Attendees who complete sec
 ### **Step 1: Initialize file and variables**
 
 In this step, you will generate a file in OIC and make use of variables in your integration to simplify the workflow.
-1. Navigate to the page that lists all integrations. Hover over the **integration you completed in section 1**. This should have version number `01.00.0000`. Click the "Menu" button, then **Create New Version**. Since you will make a **minor** change in this section, you will assign a new version number of `01.01.0000`. Notice that you now have two integrations created by you: one still-active v1.0.0, and one "configured" v1.1.0.
+1. Navigate to the **OIC home page**, then select **Integrations > Integrations**. Hover over the **integration you completed in section 1**. This should have version number `01.00.0000`. Click the "Menu" button, then **Create New Version**. Since you will make a **minor** change in this section, you will assign a new version number of `01.01.0000`. Notice that you now have two integrations created by you: one still-active v1.0.0, and one "configured" v1.1.0.
 2. Enter the newly spawned integration. In your integration, add an **Assign** action right after the `Schedule` node. (Hover your cursor over the grey arrow between `Schedule` and `Map to getTable`. Search for `assign` and select the **Assign** action. In the dialog pop up box, give it a name (for instance `initVars`) and click **Create**.)
 3. Click the lower-right plus to add a variable. Change the `initVars_assignment_1` variable name to `FILENAME`. Then, click the pencil icon to give this variable a value. For the Expression, you will simply write `"person.csv"`, quotation marks included, then **validate** and **close** out of the expression builder. _Make sure the quotation marks are "unformatted", i.e. not the so-called “smart quotation marks”._ Add another variable called `FILEDIR` with value `"/workshop"`. Once you are done, click **Close**.
 4. Right after `initVars`, add a **Stage File** action.
