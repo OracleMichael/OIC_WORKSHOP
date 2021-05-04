@@ -78,7 +78,7 @@ This step sets up the invocation of FTP to retrieve all data from the file. Our 
 ### **Step 5: Insert data into ATP**
 
 This step inserts the data into ATP.
-1. Hover your cursor over the grey arrow between `getData` and the stop node. It might help to click **Reset** to re-position all the nodes in the integration. Select the ATP connection you configured.
+1. Hover your cursor over the grey arrow between `getData` and the stop node; click the plus. It might help to click **Reset** to re-position all the nodes in the integration. Select the ATP connection you configured.
 2. In the wizard, give the invoke a name (for instance, "insertIntoTable"). For the **operation to perform**, select `Perform an Operation On a Table`, and select `Insert`. Click **Next**.
 3. Select `ADMIN` as the **Schema** and **search** for the table called `WORKSHOP`. Once you have located the table, you may double-click it or single-click and click the single right chevron to add it to the right side. Then click **Import Tables**.
 4. There are no more actions to perform, and the remaining pages are there to show information. Click **Next** and **Done**.
