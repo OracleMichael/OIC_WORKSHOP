@@ -91,7 +91,7 @@ This step inserts the data into ATP.
 
 ***Save your integration.***
 
-### **Step 5: Activate integration**
+### **Step 6: Activate integration**
 
 This step goes through the process of activating and testing integrations.
 1. First, you will need to resolve any errors that are present in the integration. You can see how many errors/warnings there are by a red/blue circled number next to "Last Saved". If you do not see just a red circled one, please contact a workshop instructor to help you resolve the extra issues. You can click the circle to view the error and hover over the entries to view the errors.
@@ -102,7 +102,7 @@ This step goes through the process of activating and testing integrations.
 
 Now your integration is active, and you can run it to perform business operations.
 
-### **Step 6: Run and monitor integration**.
+### **Step 7: Run and monitor integration**.
 
 This step shows how to manually trigger an integration and how to debug integrations.
 1. Hover your cursor over your integration and click the "Play Button". Then click **Submit Now**.
