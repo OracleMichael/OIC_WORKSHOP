@@ -222,8 +222,8 @@ This section is optional, and it builds on section 2. Attendees who complete sec
 As in [step 1 of section 2](step-1-initialize-file-and-variables), you will need to create a new version of the **integration you created in section 2**. Once this is done, you will use scopes to define specific errors that you will check for.
 1. Navigate to the OIC home page, then select **Integrations > Integrations**. Hover over the integration you completed in section 2. This should have version number 01.01.0000. Click the "Menu" button, then Create New Version. Assign a new version number of 01.02.0000. _Note: in the event that your section 2 integration did not succeed, you may instead **clone** my integration, called "Workshop_Integration_MCHEN" with version 01.01.0000. The process for cloning is basically identical to versioning: search for this integration, open the menu, then click "Clone". This time, you MUST give it a **different Identifier** (the name can be the same, but that would be very confusing) but the version number can be the same._
 2. Enter the newly spawned integration. In your integration, add a **scope** right after the `initFile` action. This would make the scope the fifth element in the integration.
-3. In the pop-up, give the scope a name, for instance `scopeGetData`, then click **Create**.
-4. Now you will reposition all elements between the scope and the email (`Map to getData`, `getData`, `Map to insertIntoTable`, `insertIntoTable`, `Map to appendToFile`, `appendToFile`) inside the scope. To do this, click the **Reposition** button (ctrl+F or cmd+F to find this more easily). Then, drag each of these elements on top of the **plus sign** that appears over the grey arrow inside the scope. **Make sure they are in the same order as before.** Once you are done, click the **Reset** button (this is next to the **Reposition** button) to reorganize the diagram. Deselect the reposition element before proceeding.
+3. In the pop-up, give the scope a name, for instance `scopeGetData`, then click **Create**. _You can shrink the scope element to hide its interior elements by clicking the upper left "shrink" button. To expand the scope again, click the scope and then click the bottom left "expand" button._
+4. Now you will reposition all elements between the scope and the email (`Map to getData`, `getData`, `Map to insertIntoTable`, `insertIntoTable`, `Map to appendToFile`, `appendToFile`) inside the scope. To do this, click the **Reposition** button (ctrl+F or cmd+F to find this more easily). Then, drag each of these elements on top of the **plus sign** that appears over the grey arrow inside the scope. **Make sure they are in the same order as before.** Once you are done, click the **Reset** button (this is next to the **Reposition** button) to reorganize the diagram.
 5. At this point, you may notice an error appear.
    - If you configured the email `FileReference` to use the `FileReference` under `appendToFile`, you will need to change the `FileReference` to point to the one nested under `initFile`. Deselect the **Reposition** button. Open the `sendEmail` action. For the attachments, hover over the `FileReference` and click the pencil icon to edit it. Search for `FileReference` and replace the current expression with the new `FileReference` (should be **$initFile > WriteResponse > WriteResponse > ICSFile > FileReference**).
    - Otherwise, you may continue on to the next step. Deselect the **Reposition** button.
@@ -249,7 +249,20 @@ Invoked by: {invokedBy}
 
 ***Save your integration.***
 
-### **Step 3: **
+### **Step 3: Apply error handling**
+
+In this step, you will modify the `result` variable if there was an error in `scopeGetData`. This allows the integration flow to continue at runtime instead of stopping when there is an error in one of these six elements.
+1. Expand the `scopeGetData` if it is not already expanded.
+2. In the upper right corner of the scope, click the **Fault Handler** button, then select the **Default Fault Handler**. This creates a fault handler for this scope. _This new flow is the "catch" block. If any of the maps or invocations has an error, the integration will evaulate the flow you will define here. By default, if this scope fault handler is not defined, the integration will attempt to evaluate the **Global Fault Handler**. If even THAT is not defined, then the integration will stop execution, and the tracking page will show this job as having an error._
+3. Add an **Assign** action in the fault handler (you can call it `setResult`).
+4. Add a new variable assignment, and from the dropdown for the name, select `result` (you configured this earlier).
+5. When the expression editor opens, type `concat( "Integration failed. Error details:\n", )` in the expression window. Navigate your cursor between the `,` and `)`. Then, on the left, drag over the element called `fault` (there should only be one). The final string should look something like this: `concat("Integration failed. Error details:\n", $scopeGetDataFaultObject/nsmpr4:fault)`.
+6. **Validate** and **Close**. Then, **Validate** and **Close**. Then, **Save** and **Close**.
+
+### **Step 4: Test success flow**
+
+In this step, you will activate your integration and submit a job. This represents the "success" case of the integration.
+1. s
 
 # Want more?
 
