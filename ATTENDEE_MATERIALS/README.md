@@ -124,7 +124,7 @@ This section is optional, and it builds on section 1. Attendees who complete sec
 ### **Step 1: Initialize file and variables**
 
 In this step, you will generate a file in OIC and make use of variables in your integration to simplify the workflow.
-1. Navigate to the **OIC home page**, then select **Integrations > Integrations**. Hover over the **integration you completed in section 1**. This should have version number `01.00.0000`. Click the "Menu" button, then **Create New Version**. Since you will make a **minor** change in this section, you will assign a new version number of `01.01.0000`. Notice that you now have two integrations created by you: one still-active v1.0.0, and one "configured" v1.1.0.
+1. Navigate to the **OIC home page**, then select **Integrations > Integrations**. Hover over the **integration you completed in section 1**. This should have version number `01.00.0000`. Click the "Menu" button, then **Create New Version**. Since you will make a **minor** change in this section, you will assign a new version number of `01.01.0000`. Notice that you now have two integrations created by you: one still-active v1.0.0, and one "configured" v1.1.0. _Note: in the event that your section 1 integration did not succeed, you may instead **clone** my integration, called "Workshop_Integration_MCHEN" with version 01.00.0000. The process for cloning is basically identical to versioning: search for this integration, open the menu, then click "Clone". This time, you MUST give it a **different Identifier** (the name can be the same, but that would be very confusing) but the version number can be the same._
 2. Enter the newly spawned integration. In your integration, add an **Assign** action right after the `Schedule` element. (Hover your cursor over the grey arrow between `Schedule` and `Map to getTable`. Search for `assign` and select the **Assign** action. In the dialog pop up box, give it a name (for instance `initVars`) and click **Create**.)
 3. Click the lower-right plus to add a variable. Change the `initVars_assignment_1` variable name to `FILENAME`. Then, click the pencil icon to give this variable a value. For the Expression, you will simply write `"person.csv"`, quotation marks included, then **validate** and **close** out of the expression builder. _Make sure the quotation marks are "unformatted", i.e. not the so-called “smart quotation marks”._ Add another variable called `FILEDIR` with value `"/workshop"`. Once you are done, click **Close**.
 4. Right after `initVars`, add a **Stage File** action.
@@ -217,16 +217,39 @@ This section is optional, and it builds on section 2. Attendees who complete sec
 
 ![](images/diagram_errhandling.png)
 
-### **Step 1: Create scopes**
+### **Step 1: Create scope**
 
 As in [step 1 of section 2](step-1-initialize-file-and-variables), you will need to create a new version of the **integration you created in section 2**. Once this is done, you will use scopes to define specific errors that you will check for.
 1. Navigate to the OIC home page, then select **Integrations > Integrations**. Hover over the integration you completed in section 2. This should have version number 01.01.0000. Click the "Menu" button, then Create New Version. Assign a new version number of 01.02.0000. _Note: in the event that your section 2 integration did not succeed, you may instead **clone** my integration, called "Workshop_Integration_MCHEN" with version 01.01.0000. The process for cloning is basically identical to versioning: search for this integration, open the menu, then click "Clone". This time, you MUST give it a **different Identifier** (the name can be the same, but that would be very confusing) but the version number can be the same._
 2. Enter the newly spawned integration. In your integration, add a **scope** right after the `initFile` action. This would make the scope the fifth element in the integration.
 3. In the pop-up, give the scope a name, for instance `scopeGetData`, then click **Create**.
 4. Now you will reposition all elements between the scope and the email (`Map to getData`, `getData`, `Map to insertIntoTable`, `insertIntoTable`, `Map to appendToFile`, `appendToFile`) inside the scope. To do this, click the **Reposition** button (ctrl+F or cmd+F to find this more easily). Then, drag each of these elements on top of the **plus sign** that appears over the grey arrow inside the scope. **Make sure they are in the same order as before.** Once you are done, click the **Reset** button (this is next to the **Reposition** button) to reorganize the diagram. Deselect the reposition element before proceeding.
-5. Add another **scope** and give it a name (for instance, `scopeSendEmail`), this time for the `sendEmail` element. **IMPORTANT: If you configured the email `FileReference` to use the `FileReference` under `appendToFile`, you will need to change the `FileReference` to point to the one nested under `initFile`.** Deselect the **Reposition** button. Open the `sendEmail` action. For the attachments, hover over the `FileReference` and click the pencil icon to edit it. Search for `FileReference` and replace the current expression with the new `FileReference` (should be **$initFile > WriteResponse > WriteResponse > ICSFile > FileReference**).
+5. At this point, you may notice an error appear.
+   - If you configured the email `FileReference` to use the `FileReference` under `appendToFile`, you will need to change the `FileReference` to point to the one nested under `initFile`. Deselect the **Reposition** button. Open the `sendEmail` action. For the attachments, hover over the `FileReference` and click the pencil icon to edit it. Search for `FileReference` and replace the current expression with the new `FileReference` (should be **$initFile > WriteResponse > WriteResponse > ICSFile > FileReference**).
+   - Otherwise, you may continue on to the next step. Deselect the **Reposition** button.
 
 ***Save your integration.***
+
+### **Step 2: Modify the email**
+
+In this step, you will change the email body to tell if the data insertion succeeded, and if it failed, what the cause was. Every integration run should result in an email notification. First, you will create a variable to hold the result of the data insertion attempt.
+1. Open the `initVars` element for editing.
+2. Click the plus to add a new variable. Rename it to `result`.
+3. Click the pencil to edit the initial value of `result`: `"Integration successfully executed. See attached file for details."` This assumes that the integration will succeed at the start. **Validate** and **Close** until you are back at the integration canvas.
+4. Open the `sendEmail` element for editing.
+5. Replace the **Body** with the following:
+```
+{result}
+
+Instance ID: {instanceId}
+Invoked by: {invokedBy}
+```
+6. Below for the **parameters**, click the plus to add another parameter. Rename it to `result`, then click the pencil icon to edit its value.
+7. On the left side, look for `$result`. The elements should be sorted in alphabetical order (excluding special characters). Set the value to `$result`. Then **Validate** and **Close** until you are back at the integration canvas.
+
+***Save your integration.***
+
+### **Step 3: **
 
 # Want more?
 
