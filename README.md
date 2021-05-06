@@ -22,7 +22,7 @@ There is also an optional additional exploration of OIC that workshop attendees 
 <li>Add some error handling logic to the integration to avoid common errors, such as:<ul>
   <li>File not found on the FTP server</li>
   <li>Table not found in ATP</li>
-  <li>Unable to write data to ATP</li></ul>
+  <li>Unable to send email</li></ul>
 Designated version is 1.2.0.
 </li></ol>
 
