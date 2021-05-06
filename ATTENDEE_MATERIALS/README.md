@@ -195,11 +195,8 @@ Now, you can follow the same steps as in steps [5](#step-5-insert-data-into-atp)
 
 **Activate the integration**
 
-1. First, you will need to resolve any errors that are present in the integration. Contact a lab instructor if you see more than a single error.
-2. Otherwise, the only error that appears is one related to tracking. Click the menu under the save button and select **Tracking**.
-3. Expand the **schedule** variable, and drag or "chevron" the `startTime` variable over.
-4. **Save your integration**, then click **Close**.
-5. In the dialog box, check the box for "Enable Tracing", and also the box for "Include Payload". Then click **Activate**. **You will see warnings related to deactivating the other integration you built. This is due to that only one major version of any integration may be active at one time.**
+1. **Close** your integration. This brings you back to the integration home screen; the status should be "Configured". Hover your cursor over your integration and click the "Power Button".
+2. In the dialog box, check the box for "Enable Tracing", and also the box for "Include Payload". Then click **Activate**. **You will see warnings related to deactivating the other integration you built. This is due to that only one major version of any integration may be active at one time.**
 
 **Testing and monitoring the integration**
 
@@ -262,7 +259,26 @@ In this step, you will modify the `result` variable if there was an error in `sc
 ### **Step 4: Test success flow**
 
 In this step, you will activate your integration and submit a job. This represents the "success" case of the integration.
-1. s
+1. **Close** your integration. This brings you back to the integration home screen; the status should be "Configured". Hover your cursor over your integration and click the "Power Button".
+2. In the dialog box, check the box for "Enable Tracing", and also the box for "Include Payload". Then click **Activate**. **You will see warnings related to deactivating the other integration you built. This is due to that only one major version of any integration may be active at one time.**
+3. Hover your cursor over your integration and click the "Play Button". Then click **Submit Now**.
+4. Confirm that "Ad hoc request" is selected, then click **Submit Now**.
+5. Navigate back to the integration home page, then go to **Monitoring > Integrations > Tracking**.
+6. Once the integration has completed execution, verify that all elements of the scope are green (i.e. the execution pathway did not result in an error in any of the components). Also, verify that you received an email starting with "Integration successfully executed..."
+
+### **Step 5: Test failure flow**
+
+In this step, you will force an error in the integration by setting the `FILENAME` variable to something else. As the `/home/workshop` folder only has the `person.csv` file, any name will do.
+1. Navigate back to the integration home page, then go to **Integrations > Integrations**.
+2. Deactivate your integration by hovering your cursor over the active integration and clicking the power button.
+3. Click the integration name or the pencil icon to begin editing the integration.
+4. Select the `initVars` element, then click the pencil icon to edit it.
+5. Locate the `FILENAME` variable, then click the pencil icon to edit it.
+6. Change the name to by any valid string that is not `"person.csv"`.
+7. **Validate** and **Close**, then **Validate** and **Close**, then **Save** and **Close**.
+8. Follow [step 4](#step-4-test-success-flow) to activate and test the integration. You'll receive an email as before, but this time it will start with "Integration failed..." You'll also notice that in the tracking page, the integration succeeded and did not cease execution halfway through. However, upon inspecting the most recent job, you will see that the integration fails at `getData` (the FTP invocation). Going into the fault handler, you will notice that the execution pathway continues here, and also continues on after the scope.
+
+That's it! There are ways to handle more specific errors, as detailed in [this document](https://www.ateam-oracle.com/oic-error-handling-guide) by the A-team at Oracle.
 
 # Want more?
 
