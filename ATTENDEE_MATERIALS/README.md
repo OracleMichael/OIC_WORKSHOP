@@ -66,7 +66,7 @@ This step initializes the integration that you will build on throughout the hand
 ### **Step 4: Invoke FTP to retrieve data**
 
 This step sets up the invocation of FTP to retrieve all data from the file. Our target file is called **[person.csv](person.csv)**. Please download this file as you will need it in this step.
-1. Hover your cursor over the grey arrow from the schedule to the stop node, and **click the plus**. Select the FTP connection you configured.
+1. Hover your cursor over the grey arrow from the schedule to the stop element, and **click the plus**. Select the FTP connection you configured.
 2. In the wizard, give the invocation a name. These names only have to be unique within the integration, so they can be generic like `getData`. Click **Next**.
 3. Leave the **operation** as `Read a File`. Leave the file format as **binary**. For the **Input Directory**, enter `/workshop`, and for the **File Name**, enter `person.csv`. Click **Next**.
 4. Leave the default settings for this page (`Yes` and `Sample delimited document`). Click **Next**.
@@ -78,13 +78,13 @@ This step sets up the invocation of FTP to retrieve all data from the file. Our 
 ### **Step 5: Insert data into ATP**
 
 This step inserts the data into ATP.
-1. Hover your cursor over the grey arrow between `getData` and the stop node; click the plus. It might help to click **Reset** to re-position all the nodes in the integration. Select the ATP connection you configured.
+1. Hover your cursor over the grey arrow between `getData` and the stop element; click the plus. It might help to click **Reset** to re-position all the elements in the integration. Select the ATP connection you configured.
 2. In the wizard, give the invoke a name (for instance, "insertIntoTable"). For the **operation to perform**, select `Perform an Operation On a Table`, and select `Insert`. Click **Next**.
 3. Select `ADMIN` as the **Schema** and **search** for the table called `WORKSHOP`. Once you have located the table, you may double-click it or single-click and click the single right chevron to add it to the right side. Then click **Import Tables**.
 4. There are no more actions to perform, and the remaining pages are there to show information. Click **Next** and **Done**.
 5. Select the **Map to insertIntoTable**, and click on the pencil icon to **edit** the mapper.
 6. On the left hand side (LHS), expand **_getData_ Response > SyncReadFileResponse > FileReadResponse > RecordSet**, which should contain a single **record** variable. Drag **record** to **Workshop**. This should create a line from **record** to **Workshop**, indicating that a mapping was created between the two objects. _Note: since both **record** and **Workshop** are container objects that consist of primitive variables, the mapping actually doesn't map any data. It only generates a "foreach" operator in the XSLT definition of the map._
-   - _Note: in case you don't see the "getData Response" element, look for just "Response" as the name of the element is the same as the name of the FTP node you configured in the previous step (so if you gave it a name of "readFile" you would look for "readFile Response")._
+   - _Note: in case you don't see the "getData Response" element, look for just "Response" as the name of the element is the same as the name of the FTP element you configured in the previous step (so if you gave it a name of "readFile" you would look for "readFile Response")._
 7. Now to map the variables within both objects. Click **XSLT** (easiest way is just ctrl+F or cmd+F to search for XSLT), then on the RHS expand **for-each > Workshop**. Also, on the LHS, expand **record**. Map all of the LHS variables to the RHS variables, so `record.Fname` to `Workshop.fname`, and so on.
 8. You will need to hard-code the `timestamp` and `createdBy` variables. Right-click on the `timestamp` variable, and select `Create Target Node`. An expression box should appear on the bottom if it has not already. Click the wrench+screwdriver icon (right side under the x) to enable editing of the expression. Enter this code as the expression: `fn:current-dateTime()`. Then click the check symbol (under the wrench+screwdriver) to save this expression.
 9. Create a target node for the `createdBy` variable and enter your name surrounded by quotes. For instance: `"John Doe"`.
@@ -125,7 +125,7 @@ This section is optional, and it builds on section 1. Attendees who complete sec
 
 In this step, you will generate a file in OIC and make use of variables in your integration to simplify the workflow.
 1. Navigate to the **OIC home page**, then select **Integrations > Integrations**. Hover over the **integration you completed in section 1**. This should have version number `01.00.0000`. Click the "Menu" button, then **Create New Version**. Since you will make a **minor** change in this section, you will assign a new version number of `01.01.0000`. Notice that you now have two integrations created by you: one still-active v1.0.0, and one "configured" v1.1.0.
-2. Enter the newly spawned integration. In your integration, add an **Assign** action right after the `Schedule` node. (Hover your cursor over the grey arrow between `Schedule` and `Map to getTable`. Search for `assign` and select the **Assign** action. In the dialog pop up box, give it a name (for instance `initVars`) and click **Create**.)
+2. Enter the newly spawned integration. In your integration, add an **Assign** action right after the `Schedule` element. (Hover your cursor over the grey arrow between `Schedule` and `Map to getTable`. Search for `assign` and select the **Assign** action. In the dialog pop up box, give it a name (for instance `initVars`) and click **Create**.)
 3. Click the lower-right plus to add a variable. Change the `initVars_assignment_1` variable name to `FILENAME`. Then, click the pencil icon to give this variable a value. For the Expression, you will simply write `"person.csv"`, quotation marks included, then **validate** and **close** out of the expression builder. _Make sure the quotation marks are "unformatted", i.e. not the so-called “smart quotation marks”._ Add another variable called `FILEDIR` with value `"/workshop"`. Once you are done, click **Close**.
 4. Right after `initVars`, add a **Stage File** action.
 5. In the wizard, give the action a name, for instance `initFile`, and click **Next**.
@@ -133,16 +133,16 @@ In this step, you will generate a file in OIC and make use of variables in your 
 7. Ensure that you want to specify the structure of the contents of the file as CSV, then click **Next**.
 8. For the **delimited data file**, choose [person_buildfile.csv](person_buildfile.csv). The **record name** can be `record`, and the **recordset name** can be `recordSet`. Then click **Next**.
 9. Click **Done**.
-10. Select the **Map to initFile** node, and click the pencil icon to **edit** the mapper.
+10. Select the **Map to initFile** element, and click the pencil icon to **edit** the mapper.
 11. On the RHS, expand **recordSet > record**. For each of the secen variables, right-click on them and select **Create Target Node**. This allows you to edit the expression for this variable without using a LHS variable. Edit the expression (clicking the wrench-screwdriver icon) and enter the variable name in quotes, so for `Fname` the expression would be `"Fname"`, etc. Once this is done, **Validate** and **Close** the mapper.
 
 ***Save your integration.***
 
 ### **Step 2: Modify `getData` to use the variables created**
 
-Recall that the `getData` node had a hard-coded directory and name. You will modify the `Map to getData` node to use the variables created in [step 1](#step-1-initialize-file-and-variables).
-1. Select the `Map to getData` node, and click the pencil icon to **edit** the mapper.
-2. Open **FileReadRequest** on the RHS. Drag `$FILENAME` to `filename`, and `$FILEDIR` to `directory`. _Even though the filename and directory variables are still the same as before in the `getData` node, they will be overwritten at runtime._
+Recall that the `getData` element had a hard-coded directory and name. You will modify the `Map to getData` element to use the variables created in [step 1](#step-1-initialize-file-and-variables).
+1. Select the `Map to getData` element, and click the pencil icon to **edit** the mapper.
+2. Open **FileReadRequest** on the RHS. Drag `$FILENAME` to `filename`, and `$FILEDIR` to `directory`. _Even though the filename and directory variables are still the same as before in the `getData` element, they will be overwritten at runtime._
 3. **Validate** and **Close**.
 
 ***Save your integration.***
@@ -156,7 +156,7 @@ In this step, you will append data to the file you initialized earlier.
 4. As before, make sure it is specifying CSV as the file format. Click **Next**.
 5. As before, choose [person_buildfile.csv](person_buildfile.csv). The **record name** can be `record`, and the **recordset name** can be `recordSet`. Then click **Next**.
 6. Click **Done**.
-7. Select the **Map to appendToFile** node, and click the pencil icon to **edit** the mapper.
+7. Select the **Map to appendToFile** element, and click the pencil icon to **edit** the mapper.
 8. On the LHS, expand **getData Response > SyncReadFileResponse > FileReadResponse > recordSet**. On the RHS, expand **recordSet**. Map the left **record** to the right **record**. Click the **XSLT** button, then on the RHS expand **recordSet > for-each > record**. On the LHS, expand **record**. As before, map like variables to like, and apply these two mappings (hard-codings?); see [step 5 of section 1](#step-5-insert-data-into-atp) for a refresher:
    - `TIMESTAMP` = `fn:current-dateTime()`
    - `CREATED_BY` = `"[YOUR NAME]"`
@@ -172,7 +172,7 @@ In this step, you will configure OIC to send you the file you just built.
    - For the **sender**, click the pencil icon and type `"no-reply@oracle.com"`.
    - For the **recipient**, click the pencil icon and type your email surrounded by quotes.
    - For the **subject**, click the pencil icon and enter something descriptive surrounded by quotes, such as `"OIC Workshop: integration run"`.
-   - For the **attachments**, click the plus icon and search for `FileReference`. There are two instances, and both work, for instance nested under **$initFile > WriteResponse > WriteResponse > ICSFile > FileReference**. _Note: even though this file reference comes from the "initFile" action, which comes before the appendToFile action, the data is modified before the email notification is fired, so the file will include all of the data processed by the foreach loop._
+   - For the **attachments**, click the plus icon and search for `FileReference`. There are two instances of the `FileReference`. You will use the one nested under **$initFile > WriteResponse > WriteResponse > ICSFile > FileReference**. _Note: even though this file reference comes from the "initFile" action, which comes before the appendToFile action, the data is modified before the email notification is fired, so the file will include all of the data processed by the foreach loop._
    - For the **body**, enter this text:
 ```
 Integration successfully executed.
@@ -210,6 +210,23 @@ Now, you can follow the same steps as in steps [5](#step-5-insert-data-into-atp)
 5. View the execution pathway in green and the activity payload to verify that your integration executed properly.
 
 Check your email!
+
+## **Section 3: Basic Error Handling**
+
+This section is optional, and it builds on section 2. Attendees who complete section 2 are strongly encouraged to move on to this section and finish as much of it as they can. You will create a new version of your integration, then add enhancements to it. <!--Here is a diagram of the integration you will build:-->
+
+![](images/diagram_errhandling.png)
+
+### **Step 1: Create scopes**
+
+As in [step 1 of section 2](step-1-initialize-file-and-variables), you will need to create a new version of the **integration you created in section 2**. Once this is done, you will use scopes to define specific errors that you will check for.
+1. Navigate to the OIC home page, then select **Integrations > Integrations**. Hover over the integration you completed in section 2. This should have version number 01.01.0000. Click the "Menu" button, then Create New Version. Assign a new version number of 01.02.0000. _Note: in the event that your section 2 integration did not succeed, you may instead **clone** my integration, called "Workshop_Integration_MCHEN" with version 01.01.0000. The process for cloning is basically identical to versioning: search for this integration, open the menu, then click "Clone". This time, you MUST give it a **different Identifier** (the name can be the same, but that would be very confusing) but the version number can be the same._
+2. Enter the newly spawned integration. In your integration, add a **scope** right after the `initFile` action. This would make the scope the fifth element in the integration.
+3. In the pop-up, give the scope a name, for instance `scopeGetData`, then click **Create**.
+4. Now you will reposition all elements between the scope and the email (`Map to getData`, `getData`, `Map to insertIntoTable`, `insertIntoTable`, `Map to appendToFile`, `appendToFile`) inside the scope. To do this, click the **Reposition** button (ctrl+F or cmd+F to find this more easily). Then, drag each of these elements on top of the **plus sign** that appears over the grey arrow inside the scope. **Make sure they are in the same order as before.** Once you are done, click the **Reset** button (this is next to the **Reposition** button) to reorganize the diagram. Deselect the reposition element before proceeding.
+5. Add another **scope** and give it a name (for instance, `scopeSendEmail`), this time for the `sendEmail` element. **IMPORTANT: If you configured the email `FileReference` to use the `FileReference` under `appendToFile`, you will need to change the `FileReference` to point to the one nested under `initFile`.** Deselect the **Reposition** button. Open the `sendEmail` action. For the attachments, hover over the `FileReference` and click the pencil icon to edit it. Search for `FileReference` and replace the current expression with the new `FileReference` (should be **$initFile > WriteResponse > WriteResponse > ICSFile > FileReference**).
+
+***Save your integration.***
 
 # Want more?
 
