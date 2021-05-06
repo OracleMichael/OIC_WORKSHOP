@@ -276,7 +276,7 @@ In this step, you will force an error in the integration by setting the `FILENAM
 5. Locate the `FILENAME` variable, then click the pencil icon to edit it.
 6. Change the name to by any valid string that is not `"person.csv"`.
 7. **Validate** and **Close**, then **Validate** and **Close**, then **Save** and **Close**.
-8. Follow [step 4](#step-4-test-success-flow) to activate and test the integration. You'll receive an email as before, but this time it will start with "Integration failed..." You'll also notice that in the tracking page, the integration succeeded and did not cease execution halfway through. However, upon inspecting the most recent job, you will see that the integration fails at `getData` (the FTP invocation). Going into the fault handler, you will notice that the execution pathway continues here, and also continues on after the scope.
+8. Follow [step 4](#step-4-test-success-flow) to activate and test the integration. You'll receive an email as before, but this time it will start with "Integration failed..." and should contain something along the lines of "File /workshop/persons.csv to be processed was not found or not available or has no content". You'll also notice that in the tracking page, the integration succeeded and did not cease execution halfway through. However, upon inspecting the most recent job, you will see that the integration fails at `getData` (the FTP invocation). Going into the fault handler, you will notice that the execution pathway continues here, and also continues on after the scope.
 
 That's it! There are ways to handle more specific errors, as detailed in [this document](https://www.ateam-oracle.com/oic-error-handling-guide) by the A-team at Oracle.
 
